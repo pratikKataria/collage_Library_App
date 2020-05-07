@@ -1,106 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/activity_main"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_one"
-        app:layout_constraintTop_toBottomOf="parent"
-        tools:layout_editor_absoluteX="117dp" />
+    <data>
 
-    <ImageView
-        android:id="@+id/imageView45"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_two"
-        app:layout_constraintStart_toEndOf="parent"
-        tools:layout_editor_absoluteY="312dp" />
+    </data>
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_three"
-        app:layout_constraintBottom_toTopOf="parent"
-        tools:layout_editor_absoluteX="213dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_main"
+        tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_five"
-        app:layout_constraintBottom_toTopOf="parent"
-        tools:layout_editor_absoluteX="112dp" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_seven"
-        app:layout_constraintBottom_toTopOf="parent"
-        tools:layout_editor_absoluteX="220dp" />
+        <ImageView
+            android:id="@+id/login_iv_login_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_bg_login_image"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_eight"
-        app:layout_constraintBottom_toTopOf="parent"
-        tools:layout_editor_absoluteX="112dp" />
+        <EditText
+            android:id="@+id/login_et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/layoutMarginStart"
+            android:layout_marginEnd="@dimen/layoutMarginEnd"
+            android:background="@drawable/bg_edit_text"
+            android:fontFamily="@font/brandon_reg"
+            android:hint="email"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_iv_login_img" />
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_nine"
-        app:layout_constraintTop_toBottomOf="parent"
-        tools:layout_editor_absoluteX="223dp" />
+        <EditText
+            android:id="@+id/login_et_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_edit_text"
+            android:fontFamily="@font/brandon_reg"
+            android:hint="password"
+            android:visibility="gone"
+            android:padding="16dp"
+            android:layout_marginStart="@dimen/layoutMarginStart"
+            android:layout_marginEnd="@dimen/layoutMarginEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_et_email" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_ten"
-        app:layout_constraintStart_toEndOf="parent"
-        tools:layout_editor_absoluteY="108dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_login"
+            style="@style/Widget.MaterialBtn.Outline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Login"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/login_mb_create_account"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/login_mb_create_account"
+            app:layout_constraintTop_toBottomOf="@+id/login_et_pass" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_four"
-        app:layout_constraintEnd_toStartOf="parent"
-        tools:layout_editor_absoluteY="120dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_mb_create_account"
+            style="@style/Widget.MaterialBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="create account"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mb_login" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_set_six"
-        app:layout_constraintEnd_toStartOf="parent"
-        tools:layout_editor_absoluteY="273dp" />
+        <TextView
+            android:id="@+id/login_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/brandon_med"
+            android:text="forget password?"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/login_mb_create_account"
+            app:layout_constraintStart_toStartOf="@+id/login_mb_create_account"
+            app:layout_constraintTop_toBottomOf="@+id/login_mb_create_account" />
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_bg_strt_bottom_right" />
+        <!--   start animation -->
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toEndOf="parent"
+            tools:layout_editor_absoluteY="8dp" />
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_bg_strt_bottom_left" />
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_one"
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:layout_editor_absoluteX="117dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_two"
+            app:layout_constraintStart_toEndOf="parent"
+            tools:layout_editor_absoluteY="312dp" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_three"
+            app:layout_constraintBottom_toTopOf="parent"
+            tools:layout_editor_absoluteX="213dp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_five"
+            app:layout_constraintBottom_toTopOf="parent"
+            tools:layout_editor_absoluteX="112dp" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_seven"
+            app:layout_constraintBottom_toTopOf="parent"
+            tools:layout_editor_absoluteX="220dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_eight"
+            app:layout_constraintBottom_toTopOf="parent"
+            tools:layout_editor_absoluteX="112dp" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_nine"
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:layout_editor_absoluteX="223dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_ten"
+            app:layout_constraintStart_toEndOf="parent"
+            tools:layout_editor_absoluteY="108dp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_four"
+            app:layout_constraintEnd_toStartOf="parent"
+            tools:layout_editor_absoluteY="120dp" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_set_six"
+            app:layout_constraintEnd_toStartOf="parent"
+            tools:layout_editor_absoluteY="273dp" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_bg_strt_bottom_right" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_bg_strt_bottom_left" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextViewMidStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read Books Be Smart"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="tap to getting started"
+            android:fontFamily="@font/brandon_med"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

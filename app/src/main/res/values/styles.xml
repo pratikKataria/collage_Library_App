@@ -11,4 +11,31 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="TextViewMidStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/brandon_med</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="background">@drawable/bg_edit_text</item>
+        <item name="fontFamily">@font/brandon_reg</item>
+        <item name="android:padding">@dimen/editTextPadding</item>
+        <item name="android:textCursorDrawable">@android:color/black</item>
+    </style>
+
+    <style name="Widget.MaterialBtn" parent="Widget.MaterialComponents.Button">
+        <item name="fontFamily">@font/brandon_bld</item>
+        <item name="android:padding">@dimen/editTextPadding</item>
+        <item name="backgroundTint">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Widget.MaterialBtn.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="fontFamily">@font/brandon_bld</item>
+        <item name="android:padding">@dimen/editTextPadding</item>
+        <item name="strokeColor">@android:color/black</item>
+        <item name="backgroundTint">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 </resources>
