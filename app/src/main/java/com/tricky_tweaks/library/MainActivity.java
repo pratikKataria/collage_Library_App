@@ -17,13 +17,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
 
+import com.tricky_tweaks.library.data.LoginViewModel;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean isLoginShown = false;
-    private ConstraintSet constraintSetGone = new ConstraintSet();
-    private ConstraintSet constraintSetVisible = new ConstraintSet();
     private ConstraintLayout constraintLayout;
     private Transition transition;
 
@@ -32,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        LoginViewModel loginViewModel = new LoginViewModel();
+        binding.setViewModel(loginViewModel);
+        Toast.makeText(this, "pass " + loginViewModel.getPassword(), Toast.LENGTH_SHORT).show();
+
+        ConstraintSet constraintSetGone = new ConstraintSet();
+        ConstraintSet constraintSetVisible = new ConstraintSet();
 
         constraintLayout = findViewById(R.id.activity_main);
         transition = new ChangeBounds();

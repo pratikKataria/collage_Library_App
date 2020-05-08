@@ -4,73 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.tricky_tweaks.library.data.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/activity_main"
         tools:context=".MainActivity">
 
 
         <ImageView
             android:id="@+id/login_iv_login_img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_bg_login_image"
             android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/login_et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:visibility="gone"
             android:layout_marginStart="@dimen/layoutMarginStart"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="@dimen/layoutMarginEnd"
             android:background="@drawable/bg_edit_text"
             android:fontFamily="@font/brandon_reg"
             android:hint="email"
             android:padding="16dp"
+            android:visibility="gone"
+            app:addTextChangedListener="@{viewModel.emailWatcher}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_iv_login_img" />
+            app:layout_constraintTop_toBottomOf="@+id/login_iv_login_img"
+            tools:visibility="visible" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/edit_text_anim"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/login_et_email"
+            app:layout_constraintEnd_toEndOf="@+id/login_et_email"
+            app:layout_constraintTop_toTopOf="@+id/login_et_email"
+            app:lottie_fileName="edit_text_animation.json"
+            app:setProgress="@{viewModel.lottieCurrProgress}" />
 
         <EditText
             android:id="@+id/login_et_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layoutMarginStart"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/layoutMarginEnd"
             android:background="@drawable/bg_edit_text"
             android:fontFamily="@font/brandon_reg"
             android:hint="password"
-            android:visibility="gone"
             android:padding="16dp"
-            android:layout_marginStart="@dimen/layoutMarginStart"
-            android:layout_marginEnd="@dimen/layoutMarginEnd"
+            android:visibility="gone"
+            app:addTextChangedListener="@{viewModel.passwordWatcher}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_et_email" />
+            app:layout_constraintTop_toBottomOf="@+id/login_et_email"
+            tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mb_login"
             style="@style/Widget.MaterialBtn.Outline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:enabled="@{viewModel.isEnableBtn}"
             android:text="Login"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/login_mb_create_account"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/login_mb_create_account"
-            app:layout_constraintTop_toBottomOf="@+id/login_et_pass" />
+            app:layout_constraintTop_toBottomOf="@+id/login_et_pass"
+            tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_mb_create_account"
@@ -78,12 +100,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:enabled="@{viewModel.isEnableBtn}"
             android:text="create account"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mb_login" />
+            app:layout_constraintTop_toBottomOf="@+id/mb_login"
+            app:layout_constraintVertical_bias="0.0"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/login_forget_password"
@@ -220,11 +246,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="tap to getting started"
             android:fontFamily="@font/brandon_med"
+            android:text="tap to getting started"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".4"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
