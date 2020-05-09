@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="@+id/login_et_email"
             app:layout_constraintTop_toTopOf="@+id/login_et_email"
             app:lottie_fileName="edit_text_animation.json"
-            app:setProgress="@{viewModel.lottieCurrProgress}" />
+            app:setEmailProgress="@{viewModel.lottieProgress}" />
 
         <EditText
             android:id="@+id/login_et_pass"
@@ -78,6 +78,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_et_email"
             tools:visibility="visible" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/edit_text_pass_anim"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/login_et_pass"
+            app:layout_constraintEnd_toEndOf="@+id/login_et_pass"
+            app:layout_constraintTop_toTopOf="@+id/login_et_pass"
+            app:lottie_fileName="pass_text_anim.json"
+            app:setPasswordProgress="@{viewModel.lottiePassProgress}" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mb_login"

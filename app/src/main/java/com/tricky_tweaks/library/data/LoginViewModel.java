@@ -13,9 +13,9 @@ import com.tricky_tweaks.library.BR;
 public class LoginViewModel extends BaseObservable {
     private String password;
     private String email;
-    private String error;
     private boolean isEnableBtn;
-    private int lottieCurrProgress;
+    private int lottieProgress;
+    private int lottiePassProgress;
 
     @Bindable
     public String getPassword() {
@@ -40,17 +40,6 @@ public class LoginViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getError() {
-        return error;
-    }
-
-    @Bindable
-    public void setError(String error) {
-        this.error = error;
-        notifyPropertyChanged(BR.error);
-    }
-
-    @Bindable
     public boolean getIsEnableBtn() {
         return isEnableBtn;
     }
@@ -62,14 +51,25 @@ public class LoginViewModel extends BaseObservable {
     }
 
     @Bindable
-    public int getLottieCurrProgress() {
-        return lottieCurrProgress;
+    public int getLottieProgress() {
+        return lottieProgress;
     }
 
     @Bindable
-    public void setLottieCurrProgress(int lottieCurrProgress) {
-        this.lottieCurrProgress = lottieCurrProgress;
-        notifyPropertyChanged(BR.lottieCurrProgress);
+    public void setLottieProgress(int lottieProgress) {
+        this.lottieProgress = lottieProgress;
+        notifyPropertyChanged(BR.lottieProgress);
+    }
+
+    @Bindable
+    public int getLottiePassProgress() {
+        return lottiePassProgress;
+    }
+
+    @Bindable
+    public void setLottiePassProgress(int lottiePassProgress) {
+        this.lottiePassProgress = lottiePassProgress;
+        notifyPropertyChanged(BR.lottiePassProgress);
     }
 
     public TextWatcher getEmailWatcher() {
@@ -82,7 +82,7 @@ public class LoginViewModel extends BaseObservable {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 setEmail(s.toString());
-                setLottieCurrProgress(getEmail().length());
+                setLottieProgress(getEmail().length());
             }
 
             @Override
@@ -91,16 +91,14 @@ public class LoginViewModel extends BaseObservable {
 
                 if (getEmail().length() == 0) {
                     setIsEnableBtn(false);
-                    setLottieCurrProgress(0);
+                    setLottieProgress(0);
                 }else if (Patterns.EMAIL_ADDRESS.matcher(s.toString().toLowerCase()).matches()) {
-                    setError("");
-                    setLottieCurrProgress(getEmail().length());
+                    setLottieProgress(getEmail().length());
                     if (getPassword().length() >= 6)
                         setIsEnableBtn(true);
                 } else {
-                    setError("email malformed");
                     setIsEnableBtn(false);
-                    setLottieCurrProgress(-1);
+                    setLottieProgress(-1);
                 }
             }
         };
@@ -120,21 +118,20 @@ public class LoginViewModel extends BaseObservable {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches() && getPassword().length() > 6) {
+                Log.e("pattern matcher", Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches() +" ");
+                if (Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches() && getPassword().length() >= 6) {
                     setIsEnableBtn(true);
+                    setLottiePassProgress(getPassword().length());
                 } else {
                     if (password == null || password.isEmpty()) {
-                        setError("Enter password");
                         setIsEnableBtn(false);
-                    } else if (password.equals("password")) {
-                        setError("very bad password");
-                        setIsEnableBtn(false);
+                        setLottiePassProgress(0);
                     } else if (password.length() < 6) {
-                        setError("should be greater then six");
                         setIsEnableBtn(false);
+                        setLottiePassProgress(getPassword().length());
                     } else {
-                        setError("");
-                        setIsEnableBtn(true);
+                        setIsEnableBtn(false);
+                        setLottiePassProgress(getPassword().length());
                     }
                 }
 
