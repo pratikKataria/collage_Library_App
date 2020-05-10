@@ -1,5 +1,6 @@
-package com.tricky_tweaks.library;
+package com.tricky_tweaks.library.auth;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.ChangeBounds;
@@ -17,29 +18,40 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
 
+import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.data.LoginViewModel;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity {
 
     boolean isLoginShown = false;
-    private ConstraintLayout constraintLayout;
-    private Transition transition;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         LoginViewModel loginViewModel = new LoginViewModel();
         binding.setViewModel(loginViewModel);
-        Toast.makeText(this, "pass " + loginViewModel.getPassword(), Toast.LENGTH_SHORT).show();
 
+        SharedPreferences preferences = getSharedPreferences("permissions", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        if (!preferences.getBoolean("FIRST_RUN", false)) {
+            statingAnimation();
+        }
+
+
+    }
+
+    //start animation
+    private void statingAnimation() {
         ConstraintSet constraintSetGone = new ConstraintSet();
         ConstraintSet constraintSetVisible = new ConstraintSet();
 
-        constraintLayout = findViewById(R.id.activity_main);
-        transition = new ChangeBounds();
+        ConstraintLayout constraintLayout = findViewById(R.id.activity_main);
+        Transition transition = new ChangeBounds();
         transition.setInterpolator(new AccelerateDecelerateInterpolator());
         transition.setDuration(1500);
 
@@ -53,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         constraintLayout.setOnClickListener(n -> {
             if (!isLoginShown) {
-                Toast.makeText(this, "clciked", Toast.LENGTH_SHORT).show();
                 TransitionManager.beginDelayedTransition(constraintLayout, transition);
                 constraintSetGone.applyTo(constraintLayout);
                 isLoginShown = true;
@@ -76,6 +87,5 @@ public class MainActivity extends AppCompatActivity {
                 }, 800);
             }
         });
-
     }
 }

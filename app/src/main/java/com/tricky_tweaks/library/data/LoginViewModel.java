@@ -87,8 +87,6 @@ public class LoginViewModel extends BaseObservable {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.e(LoginViewModel.class.getName(), Patterns.EMAIL_ADDRESS.matcher(s.toString().toLowerCase()).matches() + " " + s.toString());
-
                 if (getEmail().length() == 0) {
                     setIsEnableBtn(false);
                     setLottieProgress(0);
@@ -118,7 +116,6 @@ public class LoginViewModel extends BaseObservable {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.e("pattern matcher", Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches() +" ");
                 if (Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches() && getPassword().length() >= 6) {
                     setIsEnableBtn(true);
                     setLottiePassProgress(getPassword().length());
