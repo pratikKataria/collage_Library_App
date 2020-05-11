@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="cornerRadius">8dp</dimen>
-    <dimen name="editTextPadding">8dp</dimen>
+    <dimen name="editTextPadding">16dp</dimen>
     <dimen name="layoutMarginStart">16dp</dimen>
     <dimen name="layoutMarginEnd">16dp</dimen>
+    <dimen name="imageButton">24dp</dimen>
 </resources>
