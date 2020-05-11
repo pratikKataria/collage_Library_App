@@ -1,5 +1,6 @@
 package com.tricky_tweaks.library.auth;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,15 +18,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.tricky_tweaks.library.MainActivity;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.data.LoginViewModel;
+import com.tricky_tweaks.library.data.Student;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
+
+import static com.tricky_tweaks.library.utils.Constants.IConstants.APP_CONFIG;
+import static com.tricky_tweaks.library.utils.Constants.IConstants.FIRST_RUN;
 
 public class AuthActivity extends AppCompatActivity {
 
     boolean isLoginShown = false;
     private ActivityMainBinding binding;
+    private AuthViewModel authViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +43,99 @@ public class AuthActivity extends AppCompatActivity {
         LoginViewModel loginViewModel = new LoginViewModel();
         binding.setViewModel(loginViewModel);
 
-        SharedPreferences preferences = getSharedPreferences("permissions", 0);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        if (!preferences.getBoolean("FIRST_RUN", false)) {
-            statingAnimation();
-        }
-
+        loadScreen();
+        initAuthViewModel();
+        initAuthButton();
 
     }
 
-    //start animation
-    private void statingAnimation() {
+    //initialize auth view model
+    private void initAuthViewModel() {
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+    }
+
+
+    private void initAuthButton() {
+        binding.loginMbCreateAccount.setOnClickListener(n -> signUp());
+        binding.mbLogin.setOnClickListener(n -> signIn());
+    }
+
+    //sign in using firebase auth
+    private void signIn() {
+        String emailCredentials = binding.getViewModel().getEmail();
+        String passwordCredentials = binding.getViewModel().getPassword();
+
+        authViewModel.signInWithEmail(emailCredentials, passwordCredentials);
+        authViewModel.authenticatedStudentLiveData.observe(this, authenticatedStudent -> {
+            if (authenticatedStudent.isAuthenticated) {
+                startMainActivity(authenticatedStudent);
+            }
+        });
+    }
+
+    //sign up using firebase auth
+    private void signUp() {
+        String emailCredentials = binding.getViewModel().getEmail();
+        String passwordCredentials = binding.getViewModel().getPassword();
+        authViewModel.signUpWithEmail(emailCredentials, passwordCredentials);
+        authViewModel.authenticatedStudentLiveData.observe(this, authenticatedStudent -> {
+            if (authenticatedStudent.isNew) {
+                createNewUser(authenticatedStudent);
+            } else {
+                startMainActivity(authenticatedStudent);
+            }
+        });
+    }
+
+    //upload new user document if student is newly registered
+    private void createNewUser(Student authenticatedStudent) {
+        authViewModel.createStudent(authenticatedStudent);
+        authViewModel.createdStudentLiveData.observe(this, student -> {
+            if (student.isCreated) {
+                Toast.makeText(this, "welcome", Toast.LENGTH_SHORT).show();
+                startMainActivity(authenticatedStudent);
+            }
+        });
+    }
+
+    //go to main activity
+    void startMainActivity(Student student) {
+        Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+        intent.putExtra("USER", student);
+        startActivity(intent);
+        finish();
+    }
+
+    //this method will load screen based on app instance
+    private void loadScreen() {
+        SharedPreferences sharedPreferences = getSharedPreferences(APP_CONFIG, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        boolean isFirstRun = sharedPreferences.getBoolean(FIRST_RUN, true);
+
+        if (isFirstRun) {
+            firstTimeUserScreen();
+            editor.putBoolean(FIRST_RUN, !isFirstRun);
+            binding.setFirstRun(true);
+            editor.apply();
+        }else {
+            afterTimeUserScreen();
+        }
+    }
+
+    //when the app is opened after first time
+    private void afterTimeUserScreen(){
+        ConstraintSet constraintSet = new ConstraintSet();
+        ConstraintLayout constraintLayout = binding.activityMain;
+        constraintSet.clone(constraintLayout);
+        constraintSet.applyTo(constraintLayout);
+    }
+
+    //when app open first time  animation
+    private void firstTimeUserScreen() {
         ConstraintSet constraintSetGone = new ConstraintSet();
         ConstraintSet constraintSetVisible = new ConstraintSet();
 
-        ConstraintLayout constraintLayout = findViewById(R.id.activity_main);
+        ConstraintLayout constraintLayout = binding.activityMain;
         Transition transition = new ChangeBounds();
         transition.setInterpolator(new AccelerateDecelerateInterpolator());
         transition.setDuration(1500);

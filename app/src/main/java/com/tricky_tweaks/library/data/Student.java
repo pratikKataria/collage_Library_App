@@ -1,40 +1,33 @@
 package com.tricky_tweaks.library.data;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private String name;
     private String email;
-    private String password;
+    private String enrollmentNo;
+    private String uid;
+    public transient boolean isAuthenticated;
+    public transient boolean isNew;
+    public transient boolean isCreated;
 
     public Student() {}
 
-    /**
-     * for register email and password
-     * @param email
-     * @param password
-     */
-    public Student(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public Student(String enrollmentNo) {
+        this.enrollmentNo = enrollmentNo;
     }
 
-    /**
-     * for uploading name to database
-     * @param name
-     */
-    public Student(String name) {
-        this.name = name;
-    }
-
-    /**
-     * retrieving all the three data form database
-     * @param name
-     * @param email
-     * @param password
-     */
-    public Student(String name, String email, String password) {
+    public Student(String name, String email, String enrollmentNo, String uid) {
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.enrollmentNo = enrollmentNo;
+        this.uid = uid;
+    }
+
+    public Student(String name, String email, String uid) {
+        this.name = name;
+        this.email = email;
+        this.uid = uid;
     }
 
     public String getName() {
@@ -53,11 +46,19 @@ public class Student {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEnrollmentNo() {
+        return enrollmentNo;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEnrollmentNo(String enrollmentNo) {
+        this.enrollmentNo = enrollmentNo;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

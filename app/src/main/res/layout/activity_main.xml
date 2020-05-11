@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.tricky_tweaks.library.data.LoginViewModel" />
+        <variable
+            name="firstRun"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +28,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_bg_login_image"
-            android:visibility="gone"
+            android:visibility="@{firstRun? View.GONE: View.VISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -41,7 +47,8 @@
             android:fontFamily="@font/brandon_reg"
             android:hint="email"
             android:padding="16dp"
-            android:visibility="gone"
+            android:inputType="textEmailAddress"
+            android:visibility="@{firstRun? View.GONE: View.VISIBLE}"
             app:addTextChangedListener="@{viewModel.emailWatcher}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -53,7 +60,7 @@
             android:id="@+id/edit_text_anim"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:visibility="gone"
+            android:visibility="@{firstRun? View.GONE: View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/login_et_email"
             app:layout_constraintEnd_toEndOf="@+id/login_et_email"
             app:layout_constraintTop_toTopOf="@+id/login_et_email"
@@ -71,7 +78,8 @@
             android:fontFamily="@font/brandon_reg"
             android:hint="password"
             android:padding="16dp"
-            android:visibility="gone"
+            android:inputType="textPassword"
+            android:visibility="@{firstRun? View.GONE: View.VISIBLE}"
             app:addTextChangedListener="@{viewModel.passwordWatcher}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -98,7 +106,7 @@
             android:layout_marginTop="8dp"
             android:enabled="@{viewModel.isEnableBtn}"
             android:text="Login"
-            android:visibility="gone"
+            android:visibility="@{firstRun? View.GONE: View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="@+id/login_mb_create_account"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/login_mb_create_account"
@@ -113,7 +121,7 @@
             android:layout_marginTop="4dp"
             android:enabled="@{viewModel.isEnableBtn}"
             android:text="create account"
-            android:visibility="gone"
+            android:visibility="@{firstRun? View.GONE: View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
@@ -129,7 +137,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/brandon_med"
             android:text="forget password?"
-            android:visibility="gone"
+            android:visibility="@{firstRun? View.GONE: View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="@+id/login_mb_create_account"
             app:layout_constraintStart_toStartOf="@+id/login_mb_create_account"
             app:layout_constraintTop_toBottomOf="@+id/login_mb_create_account" />
@@ -228,6 +236,7 @@
             android:id="@+id/imageView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{firstRun? View.VISIBLE: View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_bg_strt_bottom_right" />
@@ -236,6 +245,7 @@
             android:id="@+id/imageView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{firstRun? View.VISIBLE: View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_bg_strt_bottom_left" />

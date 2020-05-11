@@ -2,6 +2,9 @@
   <dictionary name="Comet">
     <words>
       <w>constraintlayout</w>
+      <w>firestore</w>
+      <w>signin</w>
+      <w>signup</w>
     </words>
   </dictionary>
 </component>
