@@ -1,14 +1,10 @@
 package com.tricky_tweaks.library.auth;
 
-import android.os.Handler;
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.tricky_tweaks.library.data.Student;
-import com.tricky_tweaks.library.utils.FirebaseState;
+import com.tricky_tweaks.library.model.Student;
 import com.tricky_tweaks.library.utils.LogMessage;
 
 public class AuthViewModel extends ViewModel {

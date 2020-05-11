@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.tricky_tweaks.library.data.LoginViewModel" />
+            type="com.tricky_tweaks.library.model.LoginViewModel" />
         <variable
             name="firstRun"
             type="Boolean" />

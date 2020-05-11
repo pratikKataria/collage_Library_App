@@ -1,8 +1,7 @@
-package com.tricky_tweaks.library.data;
+package com.tricky_tweaks.library.model;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 
 import androidx.databinding.BaseObservable;

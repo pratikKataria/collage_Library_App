@@ -1,4 +1,4 @@
-package com.tricky_tweaks.library.data;
+package com.tricky_tweaks.library.model;
 
 import java.io.Serializable;
 

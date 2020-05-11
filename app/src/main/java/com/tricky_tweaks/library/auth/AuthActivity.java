@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -23,10 +22,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tricky_tweaks.library.MainActivity;
 import com.tricky_tweaks.library.R;
-import com.tricky_tweaks.library.data.LoginViewModel;
-import com.tricky_tweaks.library.data.Student;
+import com.tricky_tweaks.library.model.LoginViewModel;
+import com.tricky_tweaks.library.model.Student;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
-import com.tricky_tweaks.library.utils.LogMessage;
 
 import static com.tricky_tweaks.library.utils.Constants.IConstants.APP_CONFIG;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.FIRST_RUN;
