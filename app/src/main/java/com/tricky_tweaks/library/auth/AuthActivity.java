@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -25,6 +26,7 @@ import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.data.LoginViewModel;
 import com.tricky_tweaks.library.data.Student;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
+import com.tricky_tweaks.library.utils.LogMessage;
 
 import static com.tricky_tweaks.library.utils.Constants.IConstants.APP_CONFIG;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.FIRST_RUN;
@@ -46,7 +48,8 @@ public class AuthActivity extends AppCompatActivity {
         loadScreen();
         initAuthViewModel();
         initAuthButton();
-
+        loadingProgress();
+        errorStatus();
     }
 
     //initialize auth view model
@@ -56,8 +59,12 @@ public class AuthActivity extends AppCompatActivity {
 
 
     private void initAuthButton() {
-        binding.loginMbCreateAccount.setOnClickListener(n -> signUp());
-        binding.mbLogin.setOnClickListener(n -> signIn());
+        binding.loginMbCreateAccount.setOnClickListener(n -> {
+            signUp();
+        });
+        binding.mbLogin.setOnClickListener(n -> {
+            signIn();
+        });
     }
 
     //sign in using firebase auth
@@ -172,5 +179,17 @@ public class AuthActivity extends AppCompatActivity {
                 }, 800);
             }
         });
+    }
+
+    void loadingProgress() {
+        authViewModel.getIsLoading().observe(this, isLoading ->
+                binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE));
+    }
+
+    void errorStatus() {
+        authViewModel.getErrorLoading().observe(this, message -> {
+            binding.errorTextView.setText(message);
+        });
+
     }
 }

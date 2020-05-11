@@ -1,17 +1,36 @@
 package com.tricky_tweaks.library.auth;
 
+import android.os.Handler;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.tricky_tweaks.library.data.Student;
+import com.tricky_tweaks.library.utils.FirebaseState;
+import com.tricky_tweaks.library.utils.LogMessage;
 
-public class AuthViewModel  extends ViewModel {
+public class AuthViewModel extends ViewModel {
     private AuthRepository authRepository;
     LiveData<Student> authenticatedStudentLiveData;
     LiveData<Student> createdStudentLiveData;
+    MutableLiveData<Boolean> loadingStateLiveDataMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<String> errorWhileLoadingMutableLiveData = new MutableLiveData<>();
 
     public AuthViewModel() {
-        authRepository = new AuthRepository();
+        LogMessage.logErrorMessage("constructor invoked");
+        authRepository = new AuthRepository() {
+            @Override
+            public void loading(boolean isLoading) {
+                loadingStateLiveDataMutableLiveData.setValue(isLoading);
+            }
+
+            @Override
+            public void error(String message) {
+                errorWhileLoadingMutableLiveData.setValue(message);
+            }
+        };
     }
 
     void signUpWithEmail(String emailCredentials, String passwordCredentials) {
@@ -25,4 +44,13 @@ public class AuthViewModel  extends ViewModel {
     void createStudent(Student authStudent) {
         createdStudentLiveData = authRepository.createStudentInFirestoreIfNotExist(authStudent);
     }
+
+    LiveData<Boolean> getIsLoading() {
+        return loadingStateLiveDataMutableLiveData;
+    }
+
+    LiveData<String> getErrorLoading() {
+        return errorWhileLoadingMutableLiveData;
+    }
+
 }

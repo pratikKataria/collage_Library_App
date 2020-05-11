@@ -1,6 +1,7 @@
 package com.tricky_tweaks.library.auth;
 
 import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -9,15 +10,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tricky_tweaks.library.data.Student;
 import com.tricky_tweaks.library.utils.Constants;
+import com.tricky_tweaks.library.utils.FirebaseState;
 import com.tricky_tweaks.library.utils.LogMessage;
 
-class AuthRepository {
+class AuthRepository implements FirebaseState {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore ref = FirebaseFirestore.getInstance();
     private CollectionReference studentRef = ref.collection(Constants.IConstants.STUDENTS);
 
     MutableLiveData<Student> firebaseSignupWithEmail(String emailCredentials, String passwordCredentials) {
         MutableLiveData<Student> authenticatedStudentMutableLiveData = new MutableLiveData<>();
+        loading(true);
         firebaseAuth.createUserWithEmailAndPassword(emailCredentials, passwordCredentials)
                 .addOnSuccessListener(authResult -> {
                     boolean isNewUser = authResult.getAdditionalUserInfo().isNewUser();
@@ -29,9 +32,11 @@ class AuthRepository {
                         Student student = new Student(name, email, uid);
                         student.isNew = isNewUser;
                         authenticatedStudentMutableLiveData.setValue(student);
+                        loading(false);
                     }
                 })
                 .addOnFailureListener(e -> {
+                    loading(false);
                     LogMessage.logErrorMessage(e.getMessage());
                 });
         return authenticatedStudentMutableLiveData;
@@ -39,6 +44,7 @@ class AuthRepository {
 
     MutableLiveData<Student> firebaseSigninWithEmail(String emailCredentials, String passwordCredentials) {
         MutableLiveData<Student> authenticatedStudentMutableLiveData = new MutableLiveData<>();
+        loading(true);
         firebaseAuth.signInWithEmailAndPassword(emailCredentials, passwordCredentials)
                 .addOnSuccessListener(authResult -> {
                     boolean isNewUser = authResult.getAdditionalUserInfo().isNewUser();
@@ -51,9 +57,11 @@ class AuthRepository {
                         student.isNew = isNewUser;
                         student.isAuthenticated = true;
                         authenticatedStudentMutableLiveData.setValue(student);
+                        loading(false);
                     }
                 }).addOnFailureListener(e -> {
-            LogMessage.logErrorMessage(e.getMessage());
+                    loading(false);
+                    error(e.getMessage());
         });
         return authenticatedStudentMutableLiveData;
     }
@@ -75,5 +83,15 @@ class AuthRepository {
             }
         });
         return newStudentMutableLiveData;
+    }
+
+    @Override
+    public void loading(boolean isLoading) {
+
+    }
+
+    @Override
+    public void error(String message) {
+
     }
 }
