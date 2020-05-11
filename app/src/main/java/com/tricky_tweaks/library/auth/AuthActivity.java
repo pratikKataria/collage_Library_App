@@ -23,8 +23,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tricky_tweaks.library.MainActivity;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.model.LoginViewModel;
-import com.tricky_tweaks.library.model.Student;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
+import com.tricky_tweaks.library.model.Student;
 
 import static com.tricky_tweaks.library.utils.Constants.IConstants.APP_CONFIG;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.FIRST_RUN;
