@@ -3,27 +3,20 @@ package com.tricky_tweaks.library.profile;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.tricky_tweaks.library.utils.SimpleTextWatcher;
 
-import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
-import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.SUCCESS;
+import com.tricky_tweaks.library.utils.SimpleTextWatcher;
 
 public class ProfileViewModel extends ViewModel {
 
     private ProfileRepository profileRepository;
     private MutableLiveData<String> enrollmentNumberMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isEnrollmentNumberUpdatedMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isLoadingMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Integer> firebaseSateMutableLiveData = new MutableLiveData<>();
 
     public ProfileViewModel() {
         profileRepository = new ProfileRepository() {
             @Override
             public void state(int iFirebaseState) {
-                if(iFirebaseState == SUCCESS) {
-                    isEnrollmentNumberUpdatedMutableLiveData.setValue(true);
-                }else if (iFirebaseState == LOADING) {
-                    isLoadingMutableLiveData.setValue(true);
-                }
+                firebaseSateMutableLiveData.setValue(iFirebaseState);
             }
         };
     }
@@ -40,12 +33,8 @@ public class ProfileViewModel extends ViewModel {
         return enrollmentNumberMutableLiveData;
     }
 
-    public LiveData<Boolean> getIsEnrollmentNumberUpdatedLiveData() {
-        return isEnrollmentNumberUpdatedMutableLiveData;
-    }
-
-    public LiveData<Boolean> getIsLoadingMutableLiveData() {
-        return isLoadingMutableLiveData;
+    public LiveData<Integer> getFirebaseStateLiveData() {
+        return firebaseSateMutableLiveData;
     }
 
     public SimpleTextWatcher getEnrollmentNumberMutableLiveData() {

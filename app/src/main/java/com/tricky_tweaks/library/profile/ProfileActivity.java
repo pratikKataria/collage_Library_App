@@ -13,6 +13,9 @@ import com.tricky_tweaks.library.MainActivity;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.ActivityProfileBinding;
 
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.FAILED;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
+
 public class ProfileActivity extends AppCompatActivity {
 
     ActivityProfileBinding activityProfileBinding;
@@ -31,20 +34,20 @@ public class ProfileActivity extends AppCompatActivity {
         //setup with viewModel
         activityProfileBinding.setViewModel(profileViewModel);
         //observe changes to Enrollment Number
-        observeEnrollmentNumber();
+        observeFirebaseState();
     }
 
     void initViewModel() {
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
     }
 
-    void observeEnrollmentNumber() {
-        profileViewModel.getIsEnrollmentNumberUpdatedLiveData().observe(this, task -> {
-            if (task) {
+    void observeFirebaseState() {
+        profileViewModel.getFirebaseStateLiveData().observe(this, task -> {
+            if (task == LOADING) {
                 Toast.makeText(this, "updated", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
-            } else {
+            }else if (task == FAILED) {
                 Toast.makeText(this, "update failed", Toast.LENGTH_SHORT).show();
             }
         });

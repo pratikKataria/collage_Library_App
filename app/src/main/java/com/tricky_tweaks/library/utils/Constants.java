@@ -37,7 +37,7 @@ public abstract class Constants {
     })
 
     public @interface IFirebaseState {
-        int LOADING = 0;
+        int LOADING = 2;
         int SUCCESS = 1;
         int FAILED = -1;
     }

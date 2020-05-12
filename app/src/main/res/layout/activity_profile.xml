@@ -7,6 +7,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="com.tricky_tweaks.library.utils.Constants.IFirebaseState"/>
 
         <variable
             name="viewModel"
@@ -91,7 +92,7 @@
                         android:layout_width="@dimen/imageButton"
                         android:layout_height="@dimen/imageButton"
                         android:layout_marginTop="8dp"
-                        android:visibility="@{viewModel.isLoadingMutableLiveData? View.VISIBLE : View.GONE}"
+                        android:visibility="@{viewModel.firebaseStateLiveData == IFirebaseState.LOADING? View.VISIBLE : View.GONE}"
                         android:indeterminate="true"
                         android:indeterminateTint="@android:color/black"
                         app:layout_constraintEnd_toEndOf="@+id/editText"

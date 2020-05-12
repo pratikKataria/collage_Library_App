@@ -13,6 +13,7 @@ import java.util.Map;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.STUDENTS;
 import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.FAILED;
 import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.SUCCESS;
 
 public class ProfileRepository implements FirebaseState {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -26,7 +27,7 @@ public class ProfileRepository implements FirebaseState {
         updateEnrollmentNumber.put("enrollmentNo", enrollmentNumber);
         studentDocumentReference.set(updateEnrollmentNumber, SetOptions.merge())
                 .addOnSuccessListener(result -> {
-                    state(LOADING);
+                    state(SUCCESS);
                 }).addOnFailureListener(resultFailed -> {
                     state(FAILED);
         });
