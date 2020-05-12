@@ -8,6 +8,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tricky_tweaks.library.model.Student;
+import com.tricky_tweaks.library.utils.LogMessage;
 
 import static com.tricky_tweaks.library.utils.Constants.IConstants.STUDENTS;
 
@@ -16,6 +17,10 @@ public class SplashRepository {
     private Student student = new Student();
     private FirebaseFirestore studentReference = FirebaseFirestore.getInstance();
     private CollectionReference studentCollectionReference = studentReference.collection(STUDENTS);
+
+    interface FirebaseAsyncValueListener {
+        void data(Object value);
+    }
 
     MutableLiveData<Student> checkIfUserIsAuthenticatedInFirebase() {
         MutableLiveData<Student> isStudentAuthenticatedInFirebaseMutableLiveData = new MutableLiveData<>();
@@ -31,22 +36,21 @@ public class SplashRepository {
         return isStudentAuthenticatedInFirebaseMutableLiveData;
     }
 
-    MutableLiveData<Boolean> checkEnrollmentNumberInFirebaseStore(String uid) {
-        MutableLiveData<Boolean> isEnrollmentNumberPresentMutableLiveData = new MutableLiveData<>();
+    void checkEnrollmentNumberInFirebaseStore(String uid, FirebaseAsyncValueListener firebaseAsyncValueListener) {
         studentCollectionReference.document(uid).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot documentSnapshot = task.getResult();
                 if (documentSnapshot != null && documentSnapshot.exists()) {
+                    LogMessage.logErrorMessage("task success full ");
                     String enrollmentNumber = (String) documentSnapshot.get("enrollmentNo");
                     if (enrollmentNumber != null && !enrollmentNumber.isEmpty()) {
-                        isEnrollmentNumberPresentMutableLiveData.setValue(true);
+                        firebaseAsyncValueListener.data(true);
                     } else {
-                        isEnrollmentNumberPresentMutableLiveData.setValue(false);
+                        firebaseAsyncValueListener.data(false);
                     }
                 }
             }
         });
-        return isEnrollmentNumberPresentMutableLiveData;
     }
 
 }

@@ -5,10 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.tricky_tweaks.library.model.Student;
+import com.tricky_tweaks.library.utils.LogMessage;
 
 public class SplashViewModel extends ViewModel {
     private SplashRepository splashRepository;
-    private MutableLiveData<Boolean> isEnrollmentNumberExist = new MutableLiveData<>();
+    MutableLiveData<Boolean> isEnrollmentNumberExist = new MutableLiveData<>();
     private MutableLiveData<Student> isStudentAuthenticatedLiveData = new MutableLiveData<>();
 
     public SplashViewModel() {
@@ -20,7 +21,7 @@ public class SplashViewModel extends ViewModel {
     }
 
     void checkIfEnrollmentNumberPresent() {
-        isEnrollmentNumberExist = splashRepository.checkEnrollmentNumberInFirebaseStore(isStudentAuthenticatedLiveData.getValue().getUid());
+       splashRepository.checkEnrollmentNumberInFirebaseStore(isStudentAuthenticatedLiveData.getValue().getUid(), data -> isEnrollmentNumberExist.setValue((Boolean) data));
     }
 
     LiveData<Boolean> getIsEnrollmentNumberExist() {
