@@ -3,9 +3,7 @@ package com.tricky_tweaks.library.splash;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.tricky_tweaks.library.model.Student;
-import com.tricky_tweaks.library.utils.LogMessage;
 
 public class SplashViewModel extends ViewModel {
     private SplashRepository splashRepository;

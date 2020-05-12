@@ -9,7 +9,7 @@ public class ProfileViewModel extends ViewModel {
 
     private ProfileRepository profileRepository;
     private MutableLiveData<String> enrollmentNumberMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> updateSuccessful = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isEnrollmentNumberUpdatedMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoadingMutableLiveData = new MutableLiveData<>();
 
     public ProfileViewModel() {
@@ -18,6 +18,10 @@ public class ProfileViewModel extends ViewModel {
             public void loading(boolean isLoading) {
                 isLoadingMutableLiveData.setValue(isLoading);
             }
+            @Override
+            public void success(boolean isSuccessful) {
+                isEnrollmentNumberUpdatedMutableLiveData.setValue(true);
+            }
         };
     }
 
@@ -25,7 +29,7 @@ public class ProfileViewModel extends ViewModel {
     public void updateEnrollmentNumber() {
         String enrollmentNumber = enrollmentNumberMutableLiveData.getValue();
         if (enrollmentNumber != null && !enrollmentNumber.isEmpty() && enrollmentNumber.length() > 8) {
-             updateSuccessful = profileRepository.firebaseUpdateEnrollmentNumber(enrollmentNumber);
+             profileRepository.firebaseUpdateEnrollmentNumber(enrollmentNumber);
         }
     }
 
@@ -33,8 +37,8 @@ public class ProfileViewModel extends ViewModel {
         return enrollmentNumberMutableLiveData;
     }
 
-    public LiveData<Boolean> getUpdateStudentLiveData() {
-        return updateSuccessful;
+    public LiveData<Boolean> getIsEnrollmentNumberUpdatedLiveData() {
+        return isEnrollmentNumberUpdatedMutableLiveData;
     }
 
     public LiveData<Boolean> getIsLoadingMutableLiveData() {

@@ -94,4 +94,9 @@ class AuthRepository implements FirebaseState {
     public void error(String message) {
 
     }
+
+    @Override
+    public void success(boolean isSuccessful) {
+
+    }
 }
