@@ -26,8 +26,11 @@ import com.tricky_tweaks.library.model.LoginViewModel;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
 import com.tricky_tweaks.library.model.Student;
 
+import static android.view.View.GONE;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.APP_CONFIG;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.FIRST_RUN;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.FAILED;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -46,8 +49,7 @@ public class AuthActivity extends AppCompatActivity {
         loadScreen();
         initAuthViewModel();
         initAuthButton();
-        loadingProgress();
-        errorStatus();
+        observeFirebaseState();
     }
 
     //initialize auth view model
@@ -179,15 +181,14 @@ public class AuthActivity extends AppCompatActivity {
         });
     }
 
-    void loadingProgress() {
-        authViewModel.getIsLoading().observe(this, isLoading ->
-                binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE));
-    }
-
-    void errorStatus() {
-        authViewModel.getErrorLoading().observe(this, message -> {
-            binding.errorTextView.setText(message);
+    void observeFirebaseState() {
+        authViewModel.getFirebaseMutableLiveData().observe(this, task ->{
+            if (task == LOADING) {
+                binding.progressBar.setVisibility(View.VISIBLE);
+            } else if (task == FAILED) {
+                binding.progressBar.setVisibility(GONE);
+                binding.errorTextView.setText("Failed to Loading");
+            }
         });
-
     }
 }
