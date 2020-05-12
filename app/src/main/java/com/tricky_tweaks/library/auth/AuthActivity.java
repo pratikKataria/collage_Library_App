@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
@@ -25,6 +26,7 @@ import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.model.LoginViewModel;
 import com.tricky_tweaks.library.databinding.ActivityMainBinding;
 import com.tricky_tweaks.library.model.Student;
+import com.tricky_tweaks.library.profile.ProfileActivity;
 
 import static android.view.View.GONE;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.APP_CONFIG;
@@ -100,7 +102,8 @@ public class AuthActivity extends AppCompatActivity {
         authViewModel.createdStudentLiveData.observe(this, student -> {
             if (student.isCreated) {
                 Toast.makeText(this, "welcome", Toast.LENGTH_SHORT).show();
-                startMainActivity(authenticatedStudent);
+                startActivity(new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY));
+                finish();
             }
         });
     }
@@ -173,6 +176,9 @@ public class AuthActivity extends AppCompatActivity {
                     binding.loginMbCreateAccount.setVisibility(View.VISIBLE);
                     binding.loginMbCreateAccount.setAnimation(animation);
                     animation.start();
+
+                    binding.editTextAnim.setVisibility(GONE);
+                    binding.editTextPassAnim.setVisibility(GONE);
 
                     binding.imageView11.animate().translationY(200).setDuration(500).setInterpolator(new LinearInterpolator()).start();
                     binding.imageView12.animate().translationY(300).setDuration(500).setInterpolator(new LinearInterpolator()).start();
