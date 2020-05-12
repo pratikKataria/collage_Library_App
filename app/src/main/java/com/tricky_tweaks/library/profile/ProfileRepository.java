@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.tricky_tweaks.library.utils.Constants.IConstants.STUDENTS;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.FAILED;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
 
 public class ProfileRepository implements FirebaseState {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -18,33 +20,20 @@ public class ProfileRepository implements FirebaseState {
     private CollectionReference studentColReference = firebaseFirestoreReference.collection(STUDENTS);
 
     void firebaseUpdateEnrollmentNumber(String enrollmentNumber) {
-        loading(true);
+        state(LOADING);
         DocumentReference studentDocumentReference = studentColReference.document(firebaseAuth.getUid() + "");
         Map<String, String> updateEnrollmentNumber = new HashMap<>();
         updateEnrollmentNumber.put("enrollmentNo", enrollmentNumber);
         studentDocumentReference.set(updateEnrollmentNumber, SetOptions.merge())
                 .addOnSuccessListener(result -> {
-                    loading(false);
-                    success(true);
+                    state(LOADING);
                 }).addOnFailureListener(resultFailed -> {
-                    loading(false);
-                    success(false);
-                    error(resultFailed.getMessage());
+                    state(FAILED);
         });
     }
 
     @Override
-    public void loading(boolean isLoading) {
-
-    }
-
-    @Override
-    public void error(String message) {
-
-    }
-
-    @Override
-    public void success(boolean isSuccessful) {
+    public void state(int iFirebaseState) {
 
     }
 }

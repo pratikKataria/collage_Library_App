@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.tricky_tweaks.library.utils.SimpleTextWatcher;
 
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.SUCCESS;
+
 public class ProfileViewModel extends ViewModel {
 
     private ProfileRepository profileRepository;
@@ -15,12 +18,12 @@ public class ProfileViewModel extends ViewModel {
     public ProfileViewModel() {
         profileRepository = new ProfileRepository() {
             @Override
-            public void loading(boolean isLoading) {
-                isLoadingMutableLiveData.setValue(isLoading);
-            }
-            @Override
-            public void success(boolean isSuccessful) {
-                isEnrollmentNumberUpdatedMutableLiveData.setValue(true);
+            public void state(int iFirebaseState) {
+                if(iFirebaseState == SUCCESS) {
+                    isEnrollmentNumberUpdatedMutableLiveData.setValue(true);
+                }else if (iFirebaseState == LOADING) {
+                    isLoadingMutableLiveData.setValue(true);
+                }
             }
         };
     }

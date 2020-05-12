@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel;
 import com.tricky_tweaks.library.model.Student;
 import com.tricky_tweaks.library.utils.LogMessage;
 
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.FAILED;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
+
 public class AuthViewModel extends ViewModel {
     private AuthRepository authRepository;
     LiveData<Student> authenticatedStudentLiveData;
@@ -18,13 +21,12 @@ public class AuthViewModel extends ViewModel {
         LogMessage.logErrorMessage("constructor invoked");
         authRepository = new AuthRepository() {
             @Override
-            public void loading(boolean isLoading) {
-                loadingStateLiveDataMutableLiveData.setValue(isLoading);
-            }
-
-            @Override
-            public void error(String message) {
-                errorWhileLoadingMutableLiveData.setValue(message);
+            public void state(int iFirebaseState) {
+                if (iFirebaseState == FAILED) {
+                    errorWhileLoadingMutableLiveData.setValue("Authentication failed");
+                } else if (iFirebaseState == LOADING) {
+                    loadingStateLiveDataMutableLiveData.setValue(true);
+                }
             }
         };
     }
