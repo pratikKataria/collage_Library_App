@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
@@ -23,8 +22,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tricky_tweaks.library.MainActivity;
 import com.tricky_tweaks.library.R;
+import com.tricky_tweaks.library.databinding.ActivityAuthBinding;
 import com.tricky_tweaks.library.model.LoginViewModel;
-import com.tricky_tweaks.library.databinding.ActivityMainBinding;
 import com.tricky_tweaks.library.model.Student;
 import com.tricky_tweaks.library.profile.ProfileActivity;
 
@@ -37,13 +36,13 @@ import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
 public class AuthActivity extends AppCompatActivity {
 
     boolean isLoginShown = false;
-    private ActivityMainBinding binding;
+    private ActivityAuthBinding binding;
     private AuthViewModel authViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_auth);
 
         LoginViewModel loginViewModel = new LoginViewModel();
         binding.setViewModel(loginViewModel);
