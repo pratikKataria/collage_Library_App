@@ -32,10 +32,8 @@ public class MainFragment extends Fragment implements INavigation {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
-
         intViewModel();
         addAnimationToCards();
-
         return fragmentMainBinding.getRoot();
     }
 

@@ -9,7 +9,7 @@ import androidx.databinding.BindingAdapter;
 import com.airbnb.lottie.LottieAnimationView;
 import com.tricky_tweaks.library.R;
 
-public class LottieBinding {
+public class LottieBindingAdapter {
     @BindingAdapter("setEmailProgress")
     public static void setEmailLottieProgress(LottieAnimationView lottieAnimationView, int textLength) {
         if (textLength == 0) {
