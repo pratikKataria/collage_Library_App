@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.tricky_tweaks.library.MainActivity;
+import com.tricky_tweaks.library.main.MainActivity;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.auth.AuthActivity;
 import com.tricky_tweaks.library.profile.ProfileActivity;

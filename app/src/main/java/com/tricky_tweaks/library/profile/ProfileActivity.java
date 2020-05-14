@@ -6,10 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.tricky_tweaks.library.MainActivity;
+import com.tricky_tweaks.library.main.MainActivity;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.ActivityProfileBinding;
 

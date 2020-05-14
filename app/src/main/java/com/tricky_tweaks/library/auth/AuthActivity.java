@@ -20,7 +20,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.tricky_tweaks.library.MainActivity;
+import com.tricky_tweaks.library.main.MainActivity;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.ActivityAuthBinding;
 import com.tricky_tweaks.library.model.LoginViewModel;
