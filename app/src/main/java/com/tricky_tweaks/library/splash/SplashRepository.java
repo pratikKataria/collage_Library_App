@@ -41,7 +41,7 @@ public class SplashRepository {
             if (task.isSuccessful()) {
                 DocumentSnapshot documentSnapshot = task.getResult();
                 if (documentSnapshot != null && documentSnapshot.exists()) {
-                    LogMessage.logErrorMessage("task success full ");
+                    LogMessage.eMess("task success full ");
                     String enrollmentNumber = (String) documentSnapshot.get("enrollmentNo");
                     if (enrollmentNumber != null && !enrollmentNumber.isEmpty()) {
                         firebaseAsyncValueListener.data(true);

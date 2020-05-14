@@ -41,7 +41,7 @@ class AuthRepository implements FirebaseState {
                 })
                 .addOnFailureListener(e -> {
                     state(FAILED);
-                    LogMessage.logErrorMessage(e.getMessage());
+                    LogMessage.eMess(e.getMessage());
                 });
         return authenticatedStudentMutableLiveData;
     }
@@ -78,7 +78,7 @@ class AuthRepository implements FirebaseState {
                         authenticatedStudent.isCreated = true;
                         newStudentMutableLiveData.setValue(authenticatedStudent);
                     }).addOnFailureListener(taskFailed -> {
-                        LogMessage.logErrorMessage(taskFailed.getMessage());
+                        LogMessage.eMess(taskFailed.getMessage());
                     });
                 }
             }
