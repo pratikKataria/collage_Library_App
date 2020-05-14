@@ -5,12 +5,23 @@
 
     <data>
 
+        <import type="java.util.List"/>
+
+        <variable
+            name="studentList"
+            type="List&lt;com.tricky_tweaks.library.model.Student>" />
+
+        <variable
+            name="scannerViewModel"
+            type="com.tricky_tweaks.library.scanner.ScannerViewModel" />
+        
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".scanner.ScannerFragment">
+        tools:context=".scanner.ScannerFragment"
+        android:background="@android:color/black">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -51,11 +62,16 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/top_left_round_corner"
+            android:padding="16dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:scannedList="@{scannerViewModel.list}"
+                app:mAdapter="@{scannerViewModel.getAdapter(context)}"/>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

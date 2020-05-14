@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.FragmentScannerBinding;
@@ -16,6 +17,8 @@ import com.tricky_tweaks.library.databinding.FragmentScannerBinding;
  */
 public class ScannerFragment extends Fragment {
 
+    private FragmentScannerBinding fragmentScannerBinding;
+
     public ScannerFragment() {
         // Required empty public constructor
     }
@@ -24,8 +27,15 @@ public class ScannerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        FragmentScannerBinding fragmentScannerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_scanner, container, false);
-
+        fragmentScannerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_scanner, container, false);
+        initViewModel();
         return fragmentScannerBinding.getRoot();
     }
+
+    private void initViewModel() {
+        ScannerViewModel scannerViewModel = new ViewModelProvider(getActivity()).get(ScannerViewModel.class);
+        fragmentScannerBinding.setScannerViewModel(scannerViewModel);
+        scannerViewModel.createList();
+    }
+
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RecyclerViewBindingAdapter {
 
-    @BindingAdapter({"scannedList", "adapter"})
+    @BindingAdapter({"scannedList", "mAdapter"})
     public static void recyclerView(RecyclerView recyclerView, List<?> list, RecyclerView.Adapter adapter) {
         if (list == null) {
             return;
