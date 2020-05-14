@@ -9,6 +9,8 @@
 
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+
+        <item name="cardViewStyle">@style/CardViewCustomStyle</item>
     </style>
 
     <style name="TextViewMidStyle">
@@ -39,4 +41,11 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="CardViewCustomStyle">
+        <item name="android:foreground">@drawable/selectable_item_background</item>
+        <item name="cornerRadius">@dimen/cornerRadius</item>
+        <item name="elevation">0dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:stateListAnimator">@animator/card_animator</item>
+    </style>
 </resources>
