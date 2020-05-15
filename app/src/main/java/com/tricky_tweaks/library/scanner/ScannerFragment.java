@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableBoolean;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,12 +27,12 @@ import com.tricky_tweaks.library.utils.FragmentQRCodeReader;
 public class ScannerFragment extends FragmentQRCodeReader {
 
     //default generated binding Class
-    private FragmentScannerBinding fragmentScannerBinding;
+    private FragmentScannerBinding scannerBinding;
     //custom api barcode-reader class for reading qr codes in fragment
     private BarcodeReaderFragment barcodeReaderFragment;
     //keep track of if scanner is scanning or not
-    private boolean isScanning = true;
-    private ScannerViewModel scannerViewModel;
+    private ObservableBoolean isScanning = new ObservableBoolean(true);
+    private ScannerViewModel viewmodel;
 
     public ScannerFragment() {
         // Required empty public constructor
@@ -40,23 +41,28 @@ public class ScannerFragment extends FragmentQRCodeReader {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        fragmentScannerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_scanner, container, false);
-
+        //initialize view-model
         initViewModel();
+        //setup binding
+        scannerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_scanner, container, false);
+        //set lifecycle owner is important
+        //without setting up the lifecycle owner view won't get
+        //updated using live data
+        scannerBinding.setLifecycleOwner(getActivity());
+        //set viewmodel to the xml binding
+        scannerBinding.setScannerViewModel(viewmodel);
+        //set scanning to the xml binding
+        scannerBinding.setIsScanning(isScanning);
 
         initScanner();
 
-        fragmentScannerBinding.mbScanner.setOnClickListener(n -> scanOnceMore());
-
-        return fragmentScannerBinding.getRoot();
+        return scannerBinding.getRoot();
     }
 
     //initialize view model for fragment using ViewModelProvider
     private void initViewModel() {
-        scannerViewModel = new ViewModelProvider(getActivity()).get(ScannerViewModel.class);
-        fragmentScannerBinding.setScannerViewModel(scannerViewModel);
-        scannerViewModel.createList();
+        viewmodel = new ViewModelProvider(getActivity()).get(ScannerViewModel.class);
+        viewmodel.createList();
     }
 
     //initialize barcode reader fragment
@@ -68,14 +74,15 @@ public class ScannerFragment extends FragmentQRCodeReader {
          */
         barcodeReaderFragment = (BarcodeReaderFragment) getChildFragmentManager().findFragmentById(R.id.scannerFragment);
         barcodeReaderFragment.setListener(this);
+        scannerBinding.mbScanner.setOnClickListener(n -> scanOnceMore());
     }
 
     //start it invoked in button click for second time
     private void scanOnceMore() {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        if (isScanning) fragmentTransaction.remove(barcodeReaderFragment);
+        if (isScanning.get()) fragmentTransaction.remove(barcodeReaderFragment);
         else fragmentTransaction.replace(R.id.scannerFragment, barcodeReaderFragment);
-        isScanning = !isScanning;
+        isScanning.set(!isScanning.get());
         fragmentTransaction.commit();
     }
 
@@ -87,8 +94,11 @@ public class ScannerFragment extends FragmentQRCodeReader {
     @Override
     public void onScanned(Barcode barcode) {
         super.onScanned(barcode);
+
+        isScanning.set(false);
+
         //on Scan completed close the scanner
-        if (isScanning) {
+        if (!isScanning.get()) {
             getChildFragmentManager()
                     .beginTransaction()
                     .remove(getChildFragmentManager().findFragmentById(R.id.scannerFragment))
@@ -96,9 +106,9 @@ public class ScannerFragment extends FragmentQRCodeReader {
         }
 
         if (barcode.rawValue.equals(Constants.IQRCode.ENTER)) {
-            scannerViewModel.updateScannedValueWhenEnter();
+            viewmodel.updateScannedValueWhenEnter();
         } else if (barcode.rawValue.equals(Constants.IQRCode.EXIT)) {
-            scannerViewModel.updateScannedValueWhenExist();
+            viewmodel.updateScannedValueWhenExist();
         } else {
             Toast.makeText(getActivity(), "no action specified", Toast.LENGTH_SHORT).show();
         }

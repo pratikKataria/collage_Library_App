@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tricky_tweaks.library.model.LibraryEntryModel;
 import com.tricky_tweaks.library.model.Student;
+import com.tricky_tweaks.library.utils.LogMessage;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class ScannerViewModel extends ViewModel {
             @Override
             public void state(int iFirebaseState) {
                 firebaseStateMutableLiveData.setValue(iFirebaseState);
+                LogMessage.eMess("loading " + iFirebaseState);
             }
         };
     }
@@ -58,7 +60,8 @@ public class ScannerViewModel extends ViewModel {
         repository.updateScannedValueWhenExistInFirestoreDatabase(exitTimeString);
     }
 
-    public LiveData<Integer> getFirebaseStateMutableLiveData() {
+    public LiveData<Integer> getFirebaseStateLiveData() {
+        LogMessage.eMess("loadingget "+ firebaseStateMutableLiveData.getValue());
         return firebaseStateMutableLiveData;
     }
 }
