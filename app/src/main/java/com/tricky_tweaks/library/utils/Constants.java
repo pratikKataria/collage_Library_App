@@ -17,13 +17,19 @@ public abstract class Constants {
             IConstants.STUDENTS,
             IConstants.BOOKS,
             IConstants.TAG,
-            IConstants.APP_CONFIG
+            IConstants.APP_CONFIG,
+            IConstants.LIBRARY_ENTRY,
+            IConstants.STUDENTS_ONLINE,
+            IConstants.DATE_PATTERN
     })
 
 
     public @interface IConstants {
         String STUDENTS =  "students";
         String BOOKS = "books";
+        String LIBRARY_ENTRY = "libraryEntry";
+        String STUDENTS_ONLINE ="studentsOnline";
+        String DATE_PATTERN = "dd-MM-YYYY 'at' HH:mm:ss";
         String TAG = "LibraryApp";
         String APP_CONFIG = "configurations";
         String FIRST_RUN = "firstRun";
@@ -42,4 +48,14 @@ public abstract class Constants {
         int FAILED = -1;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            IQRCode.ENTER,
+            IQRCode.EXIT
+    })
+
+    public @interface IQRCode {
+        String ENTER = "enter";
+        String EXIT = "exit";
+    }
 }

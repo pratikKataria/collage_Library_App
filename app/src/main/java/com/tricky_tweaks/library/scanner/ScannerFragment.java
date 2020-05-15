@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.notbytes.barcode_reader.BarcodeReaderFragment;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.FragmentScannerBinding;
+import com.tricky_tweaks.library.utils.Constants;
 import com.tricky_tweaks.library.utils.FragmentQRCodeReader;
 
 /**
@@ -29,6 +31,7 @@ public class ScannerFragment extends FragmentQRCodeReader {
     private BarcodeReaderFragment barcodeReaderFragment;
     //keep track of if scanner is scanning or not
     private boolean isScanning = true;
+    private ScannerViewModel scannerViewModel;
 
     public ScannerFragment() {
         // Required empty public constructor
@@ -51,7 +54,7 @@ public class ScannerFragment extends FragmentQRCodeReader {
 
     //initialize view model for fragment using ViewModelProvider
     private void initViewModel() {
-        ScannerViewModel scannerViewModel = new ViewModelProvider(getActivity()).get(ScannerViewModel.class);
+        scannerViewModel = new ViewModelProvider(getActivity()).get(ScannerViewModel.class);
         fragmentScannerBinding.setScannerViewModel(scannerViewModel);
         scannerViewModel.createList();
     }
@@ -91,5 +94,14 @@ public class ScannerFragment extends FragmentQRCodeReader {
                     .remove(getChildFragmentManager().findFragmentById(R.id.scannerFragment))
                     .commit();
         }
+
+        if (barcode.rawValue.equals(Constants.IQRCode.ENTER)) {
+            scannerViewModel.updateScannedValueWhenEnter();
+        } else if (barcode.rawValue.equals(Constants.IQRCode.EXIT)) {
+            scannerViewModel.updateScannedValueWhenExist();
+        } else {
+            Toast.makeText(getActivity(), "no action specified", Toast.LENGTH_SHORT).show();
+        }
+        
     }
 }
