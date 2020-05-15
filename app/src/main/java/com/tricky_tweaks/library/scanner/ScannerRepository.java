@@ -11,7 +11,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 import com.tricky_tweaks.library.model.LibraryEntryModel;
 import com.tricky_tweaks.library.model.Student;
-import com.tricky_tweaks.library.utils.LogMessage;
+import com.tricky_tweaks.library.utils.FirebaseState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +20,11 @@ import java.util.Random;
 
 import static com.tricky_tweaks.library.utils.Constants.IConstants.LIBRARY_ENTRY;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.STUDENTS_ONLINE;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.FAILED;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.LOADING;
+import static com.tricky_tweaks.library.utils.Constants.IFirebaseState.SUCCESS;
 
-public class ScannerRepository {
+public class ScannerRepository implements FirebaseState {
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference libraryEntriesCollectionReference = firebaseFirestore.collection(LIBRARY_ENTRY);
     private CollectionReference studentOnlineInLibraryCollectionReference = firebaseFirestore.collection(STUDENTS_ONLINE);
@@ -60,6 +63,8 @@ public class ScannerRepository {
 
     void updateScannedValueWhenEnterInFirestoreDatabase(LibraryEntryModel libraryEntryModel) {
 
+        state(LOADING);
+
         WriteBatch writeBatch = firebaseFirestore.batch();
 
         DocumentReference libraryEntriesDocumentReference = libraryEntriesCollectionReference.document(FirebaseAuth.getInstance().getUid() + "");
@@ -80,13 +85,14 @@ public class ScannerRepository {
         writeBatch.set(onlineStudentDocument, onlineStudentDataModel);
 
         writeBatch.commit().addOnSuccessListener(success -> {
-            LogMessage.eMess("success");
+            state(SUCCESS);
         }).addOnFailureListener(failed -> {
-            LogMessage.eMess(failed.getMessage());
+            state(FAILED);
         });
     }
 
     void updateScannedValueWhenExistInFirestoreDatabase(String exitTimeString) {
+        state(LOADING);
         DocumentReference fetchValueFromOnlineStudentDocumentReference = studentOnlineInLibraryCollectionReference.document(FirebaseAuth.getInstance().getUid() + "");
         fetchValueFromOnlineStudentDocumentReference.get().addOnCompleteListener(snapshotTask -> {
             if (snapshotTask.isSuccessful()) {
@@ -100,13 +106,11 @@ public class ScannerRepository {
                     existTimeDataModel.put("exitTime", exitTimeString);
                     rootNode.put(libraryEntriesCollectionID, existTimeDataModel);
                     reference.set(rootNode, SetOptions.merge()).addOnSuccessListener(task -> {
-
+                        state(SUCCESS);
                     }
                     ).addOnFailureListener(failed -> {
-
+                        state(FAILED);
                     });
-
-
                 }
             }
         }).addOnFailureListener(taskFailed -> {
@@ -124,6 +128,11 @@ public class ScannerRepository {
         }
         String saltStr = salt.toString();
         return saltStr;
+
+    }
+
+    @Override
+    public void state(int iFirebaseState) {
 
     }
 }

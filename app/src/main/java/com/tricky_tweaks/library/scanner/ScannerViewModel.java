@@ -18,12 +18,18 @@ import java.util.Date;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.DATE_PATTERN;
 
 public class ScannerViewModel extends ViewModel {
-    ScannerRepository repository;
-    MutableLiveData<ArrayList<Student>> list = new MutableLiveData<>();
+    private ScannerRepository repository;
+    private MutableLiveData<ArrayList<Student>> list = new MutableLiveData<>();
+    private MutableLiveData<Integer> firebaseStateMutableLiveData = new MutableLiveData<>();
 
     //initialize repository
     public ScannerViewModel() {
-        repository = new ScannerRepository();
+        repository = new ScannerRepository() {
+            @Override
+            public void state(int iFirebaseState) {
+                firebaseStateMutableLiveData.setValue(iFirebaseState);
+            }
+        };
     }
 
     public void createList() {
@@ -52,4 +58,7 @@ public class ScannerViewModel extends ViewModel {
         repository.updateScannedValueWhenExistInFirestoreDatabase(exitTimeString);
     }
 
+    public LiveData<Integer> getFirebaseStateMutableLiveData() {
+        return firebaseStateMutableLiveData;
+    }
 }

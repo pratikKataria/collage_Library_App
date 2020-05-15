@@ -1,5 +1,5 @@
 package com.tricky_tweaks.library.utils;
 
 public interface FirebaseState {
-    void state(int iFirebaseState);
+    void state(@Constants.IFirebaseState int iFirebaseState);
 }
