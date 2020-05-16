@@ -48,4 +48,11 @@
         <item name="android:clickable">true</item>
         <item name="android:stateListAnimator">@animator/card_animator</item>
     </style>
+
+    <style name="timeTextview" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="fontFamily">@font/brandon_med</item>
+    </style>
 </resources>

@@ -1,18 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="210dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        android:backgroundTint="@color/colorGray50">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textView6"
+                style="@style/timeTextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="afad"/>
+                android:layout_marginStart="12dp"
+                android:text="10:20 \nAM"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.tricky_tweaks.library.custom_view.DashLineView
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:color="#FF8800"
+                app:dashGap="12dp"
+                app:dashLength="12dp"
+                app:dashThickness="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView6y"
+                app:layout_constraintEnd_toEndOf="@+id/textView6"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/textView6y"
+                style="@style/timeTextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="12:30 \nPM"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="textView6,textView6y"
+                tools:layout_editor_absoluteX="411dp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/brandon_med"
+                android:includeFontPadding="false"
+                android:text="Pratik \nKatariya"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toRightOf="@id/barrier"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/brandon_med"
+                android:includeFontPadding="false"
+                android:text="0832CS171121"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintLeft_toRightOf="@id/barrier"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/brandon_med"
+                android:includeFontPadding="false"
+                android:text="Sunday 23, Map"
+                android:textColor="@android:color/black"
+                app:layout_constraintLeft_toRightOf="@id/barrier"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
