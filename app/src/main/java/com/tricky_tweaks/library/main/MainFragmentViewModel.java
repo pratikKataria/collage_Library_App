@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.tricky_tweaks.library.utils.INavigation;
+import com.tricky_tweaks.library.interfaces.INavigation;
 
 public class MainFragmentViewModel extends ViewModel {
 

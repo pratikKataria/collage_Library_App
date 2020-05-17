@@ -1,16 +1,19 @@
 package com.tricky_tweaks.library.model;
 
 import com.google.firebase.firestore.ServerTimestamp;
+import com.tricky_tweaks.library.interfaces.ListHeader;
 
 import java.util.Date;
 
-public class LibraryEntryModel {
+public class LibraryEntryModel implements ListHeader {
     private String name;
     private String enrollmentNo;
     private String enterTime;
     private String exitTime;
     @ServerTimestamp
     private Date timestamp;
+
+    public LibraryEntryModel() {}
 
     public LibraryEntryModel(String name, String enrollmentNo, String enterTime, String exitTime, Date timestamp) {
         this.name = name;
@@ -58,5 +61,10 @@ public class LibraryEntryModel {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public boolean isHeader() {
+        return false;
     }
 }

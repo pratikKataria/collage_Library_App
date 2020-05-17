@@ -9,11 +9,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
+import com.tricky_tweaks.library.interfaces.FirebaseState;
+import com.tricky_tweaks.library.interfaces.ListHeader;
 import com.tricky_tweaks.library.model.LibraryEntryModel;
-import com.tricky_tweaks.library.model.Student;
-import com.tricky_tweaks.library.utils.FirebaseState;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -29,34 +30,35 @@ public class ScannerRepository implements FirebaseState {
     private CollectionReference libraryEntriesCollectionReference = firebaseFirestore.collection(LIBRARY_ENTRY);
     private CollectionReference studentOnlineInLibraryCollectionReference = firebaseFirestore.collection(STUDENTS_ONLINE);
 
-    public MutableLiveData<ArrayList<Student>> getScannedListFromFirebaseFake() {
-        MutableLiveData<ArrayList<Student>> listOfStudent = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<ListHeader>> getScannedListFromFirebaseFake() {
+        MutableLiveData<ArrayList<ListHeader>> listOfStudent = new MutableLiveData<>();
 
-        ArrayList<Student> list = new ArrayList<>();
-        Student student = new Student("name ", "email ", "203221", "dasfiads");
+        ArrayList<ListHeader> list = new ArrayList<>();
+        LibraryEntryModel student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "24-2-2020", new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "24-2-2020", new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "22-2-2020", new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "21-3-2020", new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "1-4-2020" , new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "5-4-2020" , new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "7-5-2020" , new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "6-5-2020" , new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "8-5-2020" , new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "9-6-2020" , new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "2-10-2020", new Date());
         list.add(student);
-        student = new Student("name ", "email ", "203221", "dasfiads");
+        student = new LibraryEntryModel("Pratik Katariya ", "0832CS171121 ", "10:20 AM", "2-12-2020", new Date());
         list.add(student);
+
         listOfStudent.setValue(list);
         return listOfStudent;
     }

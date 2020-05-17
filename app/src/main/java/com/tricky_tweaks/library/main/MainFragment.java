@@ -15,8 +15,8 @@ import androidx.navigation.Navigation;
 
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.FragmentMainBinding;
+import com.tricky_tweaks.library.interfaces.INavigation;
 import com.tricky_tweaks.library.utils.CustomBounceInterpolator;
-import com.tricky_tweaks.library.utils.INavigation;
 
 
 public class MainFragment extends Fragment implements INavigation {
