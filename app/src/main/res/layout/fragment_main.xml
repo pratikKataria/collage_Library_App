@@ -35,12 +35,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="12dp"
+                android:clickable="true"
                 android:fontFamily="@font/brandon_bld"
-                android:text="Search here..."
                 android:includeFontPadding="false"
                 android:paddingTop="8dp"
-                android:clickable="true"
                 android:stateListAnimator="@animator/card_animator"
+                android:text="Search here..."
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/view"
@@ -56,7 +56,24 @@
                 android:background="@drawable/top_left_round_corner"
                 android:padding="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="16dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="16dp" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -72,13 +89,13 @@
                     android:id="@+id/materialCardView"
                     android:layout_width="150dp"
                     android:layout_height="0dp"
-                    app:cardCornerRadius="14dp"
-                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_SCANNER)}"
                     android:backgroundTint="@color/colorGray50"
+                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_SCANNER)}"
+                    app:cardCornerRadius="14dp"
                     app:layout_constraintBottom_toBottomOf="@+id/materialCardView3"
                     app:layout_constraintEnd_toStartOf="@+id/materialCardView2"
                     app:layout_constraintHorizontal_bias="0.79"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline3"
                     app:layout_constraintTop_toTopOf="@+id/materialCardView2">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,11 +133,12 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="8dp"
-                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_BOOK_ISSUE)}"
                     android:backgroundTint="@color/colorGray50"
+                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_BOOK_ISSUE)}"
                     android:stateListAnimator="@animator/card_animator"
                     app:cardCornerRadius="@dimen/materialCardCornerRadius"
                     app:layout_constraintDimensionRatio="h,1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toEndOf="@+id/materialCardView4"
                     app:layout_constraintTop_toBottomOf="@+id/textView5">
 
@@ -159,8 +177,8 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="8dp"
                     android:backgroundTint="@color/colorGray50"
-                    app:cardCornerRadius="@dimen/materialCardCornerRadius"
                     android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_REQUEST)}"
+                    app:cardCornerRadius="@dimen/materialCardCornerRadius"
                     app:constraint_referenced_ids="materialCardView2"
                     app:layout_constraintDimensionRatio="h,1:1"
                     app:layout_constraintStart_toStartOf="@+id/materialCardView2"
@@ -201,9 +219,9 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="8dp"
                     android:backgroundTint="@color/colorGray50"
+                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_BOOKS)}"
                     app:cardCornerRadius="@dimen/materialCardCornerRadius"
                     app:constraint_referenced_ids="materialCardView2"
-                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_BOOKS)}"
                     app:layout_constraintDimensionRatio="h,1:1"
                     app:layout_constraintStart_toStartOf="@+id/materialCardView"
                     app:layout_constraintTop_toBottomOf="@+id/materialCardView">
@@ -242,8 +260,8 @@
                     android:layout_width="148dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="8dp"
-                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_LIBRARY_CARDS)}"
                     android:backgroundTint="@color/colorGray50"
+                    android:onClick="@{() -> mainFragmentViewModel.navigateToDestination(context, IDestination.TO_LIBRARY_CARDS)}"
                     app:cardCornerRadius="@dimen/materialCardCornerRadius"
                     app:constraint_referenced_ids="materialCardView2"
                     app:layout_constraintDimensionRatio="h,1:1"
@@ -282,6 +300,7 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
