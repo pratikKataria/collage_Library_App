@@ -32,15 +32,16 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.tricky_tweaks.library.custom_view.DashLineView
+                android:id="@+id/dashLineView"
                 android:layout_width="2dp"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                app:color="#FF8800"
-                app:dashGap="12dp"
-                app:dashLength="12dp"
-                app:dashThickness="5dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:color="#FF8800"
+                app:dashGap="5dp"
+                app:dashLength="12dp"
+                app:dashThickness="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView6y"
                 app:layout_constraintEnd_toEndOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
@@ -49,14 +50,15 @@
             <TextView
                 android:id="@+id/textView6y"
                 style="@style/timeTextview"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
-                tools:text="12:30 \nPM"
                 android:text="@{libraryEntry.exitTime}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/textView6"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="12:30 \nPM" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"

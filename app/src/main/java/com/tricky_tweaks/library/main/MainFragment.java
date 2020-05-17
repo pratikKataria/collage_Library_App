@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.FragmentMainBinding;
@@ -60,7 +61,13 @@ public class MainFragment extends Fragment implements INavigation {
 
     @Override
     public void navigateTo(int destination) {
+
+        //shared element transition to navigation component
+        FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                .addSharedElement(fragmentMainBinding.imageView13, "shared_container")
+                .build();
+
         NavController navController = Navigation.findNavController(getActivity(), R.id.mainHost);
-        navController.navigate(destination);
+        navController.navigate(destination, null, null, extras);
     }
 }

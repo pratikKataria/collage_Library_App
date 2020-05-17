@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableBoolean;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.material.transition.MaterialContainerTransform;
 import com.notbytes.barcode_reader.BarcodeReaderFragment;
 import com.tricky_tweaks.library.R;
 import com.tricky_tweaks.library.databinding.FragmentScannerBinding;
@@ -23,7 +25,6 @@ import com.tricky_tweaks.library.utils.FragmentQRCodeReader;
 import static com.tricky_tweaks.library.utils.Constants.IConstants.APP_CONFIG;
 import static com.tricky_tweaks.library.utils.Constants.IQRCode.ENTER;
 import static com.tricky_tweaks.library.utils.Constants.IQRCode.EXIT;
-
 /**
  * created by pratik katariya
  * on fri, 15 may 2020
@@ -44,6 +45,11 @@ public class ScannerFragment extends FragmentQRCodeReader {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setSharedElementEnterTransition(new MaterialContainerTransform());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
