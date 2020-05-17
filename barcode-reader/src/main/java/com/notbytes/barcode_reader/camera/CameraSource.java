@@ -202,7 +202,7 @@ public class CameraSource {
         }
 
         public Builder setFocusMode(@FocusMode String mode) {
-            mCameraSource.mFocusMode = mode;
+            mCameraSource.mFocusMode = Camera.Parameters.FOCUS_MODE_FIXED;
             return this;
         }
 

@@ -37,7 +37,7 @@ public class ScannerFragment extends FragmentQRCodeReader {
     //custom api barcode-reader class for reading qr codes in fragment
     private BarcodeReaderFragment barcodeReaderFragment;
     //keep track of if scanner is scanning or not
-    private ObservableBoolean isScanning = new ObservableBoolean(true);
+    private ObservableBoolean isScanning = new ObservableBoolean();
     private ScannerViewModel viewmodel;
 
     public ScannerFragment() {
@@ -60,7 +60,12 @@ public class ScannerFragment extends FragmentQRCodeReader {
         //set scanning to the xml binding
         scannerBinding.setIsScanning(isScanning);
 
-        initScanner();
+        getChildFragmentManager()
+                .beginTransaction()
+                .remove(getChildFragmentManager().findFragmentById(R.id.scannerFragment))
+                .commit();
+
+        scannerBinding.mbScanner.setOnClickListener(n -> scanOnceMore());
 
         return scannerBinding.getRoot();
     }
@@ -78,13 +83,14 @@ public class ScannerFragment extends FragmentQRCodeReader {
          * it is get using getChildFragmentManager
          * setting up the custom bar code listener
          */
-        barcodeReaderFragment = (BarcodeReaderFragment) getChildFragmentManager().findFragmentById(R.id.scannerFragment);
-        barcodeReaderFragment.setListener(this);
-        scannerBinding.mbScanner.setOnClickListener(n -> scanOnceMore());
+
     }
 
     //start it invoked in button click for second time
     private void scanOnceMore() {
+
+        barcodeReaderFragment = new BarcodeReaderFragment();
+        barcodeReaderFragment.setListener(ScannerFragment.this);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         if (isScanning.get()) fragmentTransaction.remove(barcodeReaderFragment);
         else fragmentTransaction.replace(R.id.scannerFragment, barcodeReaderFragment);
